@@ -1,0 +1,29 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+use App\Repositories\User\UserRepository;
+
+use App\Http\Resources\UserResource;
+
+class ApiController extends Controller
+{
+    private $user;
+
+    public function __construct(UserRepository $user)
+    {
+        $this->user = $user;
+    }
+
+    public function viewUser($id)
+    {
+        $user = $this->user->getById($id);
+
+        return response()->json([
+            'success' => true,
+            'user' => new UserResource($user)
+        ]);
+    }
+}
