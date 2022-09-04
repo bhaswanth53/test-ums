@@ -19,3 +19,4 @@ Route::get('/users/{id}', [App\Http\Controllers\AppController::class, 'viewUser'
 
 Route::post('/create', [App\Http\Controllers\AppController::class, 'addUser'])->name('add-user');
 Route::post('/users/{id}/task', [App\Http\Controllers\AppController::class, 'addTask'])->name('add-task');
+Route::post('/task/{id}/update', [App\Http\Controllers\AppController::class, 'updateTask'])->name('update-task');

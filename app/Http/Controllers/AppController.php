@@ -6,14 +6,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 use App\Repositories\User\UserRepository;
+use App\Repositories\Task\TaskRepository;
 
 class AppController extends Controller
 {
     private $user;
+    private $task;
 
-    public function __construct(UserRepository $user)
+    public function __construct(UserRepository $user, TaskRepository $task)
     {
         $this->user = $user;
+        $this->task = $task;
     }
 
     public function index()
@@ -62,5 +65,19 @@ class AppController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Task has been created successfully!');
+    }
+
+    public function updateTask(Request $request, $id)
+    {
+        $srray = [
+            'pending' => 'completed',
+            'completed' => 'pending'
+        ];
+
+        $task = $this->task->update($id, [
+            'status' => $srray[$request->input('status')]
+        ]);
+
+        return redirect()->back()->with('success', 'Task has been updated successfully!');
     }
 }

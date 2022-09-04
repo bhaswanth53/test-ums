@@ -33,7 +33,20 @@
             @if($user->tasks->count() > 0)
                 <ul class="uk-list task-list">
                     @foreach ($user->tasks as $task)
-                        <li>{{ $task->task }}</li>
+                        <li class="{{ $task->status }}">
+                            <table class="uk-table uk-table-middle">
+                                <tr>
+                                    <td>{{ $task->task }}</td>
+                                    <td>
+                                        <form action="{{ route('update-task', ['id' => $task->id]) }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="status" value="{{ $task->status }}" />
+                                            <button type="submit" class="task-status {{ $task->status }}">{{ ucfirst($task->status) }}</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </table>
+                        </li>
                     @endforeach
                 </ul>
             @endif

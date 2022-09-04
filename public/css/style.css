@@ -13,5 +13,25 @@
 .task-list li {
     padding: 10px;
     box-shadow: 0 5px 15px rgb(0 0 0 / 8%);
-    border-left: 2px solid var(--primary-color);
+}
+
+.task-list li.pending {
+    border-left: 3px solid #d1200d;
+}
+
+.task-list li.completed {
+    border-left: 3px solid #227d0b;
+}
+
+.task-status {
+    border: 0;
+    cursor: pointer;
+}
+.task-status.pending {
+    background-color: #d1200d;
+    color: #ffffff;
+}
+.task-status.completed {
+    background-color: #227d0b;
+    color: #ffffff;
 }
