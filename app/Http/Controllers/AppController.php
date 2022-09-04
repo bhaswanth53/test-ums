@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Hash;
 use App\Repositories\User\UserRepository;
 use App\Repositories\Task\TaskRepository;
 
+use App\Events\TaskUpdated;
+
 class AppController extends Controller
 {
     private $user;
@@ -74,9 +76,11 @@ class AppController extends Controller
             'completed' => 'pending'
         ];
 
-        $task = $this->task->update($id, [
+        /* $task = $this->task->update($id, [
             'status' => $srray[$request->input('status')]
-        ]);
+        ]); */
+
+        event(new TaskUpdated($id, $srray[$request->input('status')]));
 
         return redirect()->back()->with('success', 'Task has been updated successfully!');
     }
